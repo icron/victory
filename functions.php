@@ -3,7 +3,7 @@
     mb_internal_encoding("UTF-8");
 
     require_once __DIR__ . '/validator.php';
-    $validation = new Validator;
+    //$validation = new Validator;
     function validate(array $inputData)
     {
         $rules = getRules();

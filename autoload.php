@@ -1,19 +1,10 @@
 <?php
-function NewAutoload($className)
+function autoloader($className)
 {
-    $classPath = './classes/' . $className . '.php';
-    if (file_exists($classPath))
-    {
-    include "$classPath";
+    $classPath = __DIR__ . '/classes/' . $className . '.php';
+    if (file_exists($classPath)) {
+        include "$classPath";
     }
 }
-function INewAutoload($interfaceName)
-{
-    $interfacePath = './interfaces/' . $interfaceName . '.php';
-    if (file_exists($interfacePath))
-    {
-        include "$interfacePath";
-    }
-}
-spl_autoload_register('NewAutoload');
-spl_autoload_register('INewAutoload');
+
+spl_autoload_register('autoloader');
