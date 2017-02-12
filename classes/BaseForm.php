@@ -2,12 +2,12 @@
 
 class BaseForm
 {
-    protected $errors;
+    protected $errors = [];
 
     public function validate()
     {
         $rules = $this->getRules();
-        $errors = [];
+        $validatorParams = [];
         // Вызываем каждый валидатор в цикле, который указан в rules и сохраняем ошибки в $this->errors
         foreach ($rules as $attribute => $validator) {
             if (is_array($validator)) {
@@ -24,7 +24,7 @@ class BaseForm
 
             /** @var Validator $validatorClass */
             $validatorClass = new $validatorName;
-            $validatorClass->validate($this->$attribute);
+            $validatorClass->validate($this->$attribute, $validatorParams);
             if ($validatorClass->hasErrors()) {
                 $this->errors[$attribute] = $validatorClass->getErrors();
             }

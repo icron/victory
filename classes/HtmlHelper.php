@@ -2,11 +2,7 @@
 
 class HtmlHelper
 {
-
-    public function xxx()
-    {
-
-    }
+    public static $controlGroupTemplate = '<div class="form-group {class_error}">{label} <div class="controls">{input} {error}</div></div>';
 
     public static function textField(BaseForm $form, $attribute)
     {
@@ -24,23 +20,35 @@ class HtmlHelper
     {
         $label = self::label($form, $attribute);
         $input = self::textField($form, $attribute);
-        return self::prepareFormGroup($input, $label);
-    }
-
-    private static function prepareFormGroup($field, $label)
-    {
-        return sprintf('<div class="form-group">%s %s</div>', $label, $field);
+        $error = self::error($form, $attribute);
+        return strtr(self::$controlGroupTemplate, [
+            '{class_error}' => !empty($error) ? 'error' : '',
+            '{label}' => $label,
+            '{input}' => $input,
+            '{error}' => $error
+        ]);
     }
 
     public static function label(BaseForm $form, $attribute)
     {
         return strtr(
-            '<label for="{attribute}">{value}</label>',
+            '<label class="control-label for="{attribute}">{value}</label>',
             [
                 '{attribute}' => $attribute,
                 '{value}' => $form->getLabel($attribute)
             ]
         );
+    }
+
+    public static function error(BaseForm $form, $attribute)
+    {
+        $errors = $form->getErrors();
+        $result = !empty($errors[$attribute]) ? $errors[$attribute] : null;
+
+        if ($result !== null) {
+            $result = '<span class="help-inline error">' . implode('<br />', $result) . '</span>';
+        }
+        return $result;
     }
 
     public static function renderErrorsSummary(BaseForm $form)

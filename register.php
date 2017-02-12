@@ -27,7 +27,7 @@
                 <div>
                     <?= HtmlHelper::renderErrorsSummary($form); ?>
                 </div>
-                <form method="POST">
+                <form method="POST" class="form-horizontal">
                     <?= HtmlHelper::textFieldRow($form, 'lastname') ?>
                     <?= HtmlHelper::textFieldRow($form, 'firstname') ?>
                     <?= HtmlHelper::textFieldRow($form, 'middlename') ?>

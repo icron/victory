@@ -10,7 +10,6 @@ class NameValidator extends Validator
         // Разбиваем на символы:
         $countLetters = mb_strlen($data);
 
-
         if (isset($params['min'])) {
             if ($countLetters < (int)$params['min']) {
                 $this->addError(' - длина строки меньше...');
