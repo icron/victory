@@ -2,34 +2,37 @@
 
 class DateValidator extends Validator
 {
-    public function validate($birthday, $params = [])
+    public function validate($data, $params = [])
     {
-        if (!preg_match("/^[0-9]{2}.[0-9]{2}.[0-9]{4}$/", $birthday)) {
+        if (!preg_match("/^[0-9]{2}.[0-9]{2}.[0-9]{4}$/", $data)) {
+            $this->addError(' - указана недопустимая дата');
             return false;
         }
 
-        if (!empty($params['min'])) {
+        if (isset($params['min'])) {
             $dateMin = (new DateTime())->sub(new DateInterval('P' . (int)$params['min'] . 'Y'));
-            $dateBirthdayObject = new DateTime($birthday);
-            $dateItervalMin = $dateBirthdayObject->diff($dateMin);
-            $isInvertMin = $dateItervalMin->invert;
+            $dateBirthdayObject = new DateTime($data);
+            $dateIntervalMin = $dateBirthdayObject->diff($dateMin);
+            $isInvertMin = $dateIntervalMin->invert;
 
             if ($isInvertMin == 1) {
-                $this->addError('Значение меньше допустимого');
+                $this->addError(' - значение меньше допустимого');
+                return false;
             }
         }
 
-        if (!empty($params['max'])) {
+        if (isset($params['max'])) {
             $dateMax = (new DateTime())->sub(new DateInterval('P' . (int)$params['max'] . 'Y'));
-            $dateBirthdayObject = new DateTime($birthday);
-            $dateItervalMax = $dateBirthdayObject->diff($dateMax);
-            $isInvertMax = $dateItervalMax->invert;
+            $dateBirthdayObject = new DateTime($data);
+            $dateIntervalMax = $dateBirthdayObject->diff($dateMax);
+            $isInvertMax = $dateIntervalMax->invert;
 
             if ($isInvertMax == 0) {
-                $this->addError('Значение больше допустимого');
+                $this->addError(' - значение больше допустимого');
+                return false;
             }
         }
 
-        return !$this->hasErrors();
+        return true;
     }
 }

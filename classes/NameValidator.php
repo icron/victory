@@ -10,15 +10,19 @@ class NameValidator extends Validator
         // Разбиваем на символы:
         $countLetters = mb_strlen($data);
 
-        // TODO перенести параметр 1 в $params
-        if ($countLetters < 1) {
-            $this->addError('Длинна строки меньше...');
-            return false;
+
+        if (isset($params['min'])) {
+            if ($countLetters < (int)$params['min']) {
+                $this->addError(' - длина строки меньше...');
+                return false;
+            }
         }
-        // TODO перенести параметр 32 в $params
-        if ($countLetters > 32) {
-            $this->addError('Длинна строки больше...');
-            return false;
+
+        if (isset($params['max'])) {
+            if ($countLetters > (int)$params['max']) {
+                $this->addError(' - длина строки больше...');
+                return false;
+            }
         }
 
         // Посимвольно проверяем принадлежность символа к массиву.
@@ -26,7 +30,7 @@ class NameValidator extends Validator
         while ($i < $countLetters) {
             $letter = mb_substr($data, $i, 1);
             if (!in_array($letter, $allowedLetters)) {
-                $this->addError('Невалиные символы');
+                $this->addError(' - использованы недопустимые символы');
                 return false;
             }
             $i++;

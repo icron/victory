@@ -2,8 +2,13 @@
 
 class EmailValidator extends Validator
 {
-    public function validate($email, $params = [])
+    public function validate($data, $params = [])
     {
-        return (bool)filter_var($email, FILTER_VALIDATE_EMAIL);
+        $result = (bool)filter_var($data, FILTER_VALIDATE_EMAIL);
+        if ($result === false) {
+            $this->addError(' - неверно указан e-mail адрес');
+            return false;
+        }
+        return true;
     }
 }

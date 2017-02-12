@@ -12,9 +12,9 @@ class RegisterForm extends BaseForm
     public function getDefaultValues()
     {
         return [
-            'last-name' => '',
-            'first-name' => '',
-            'middle-name' => '',
+            'lastname' => '',
+            'firstname' => '',
+            'middlename' => '',
             'birthday' => '14.11.1980',
             'passport' => '',
             'email' => '',
@@ -26,7 +26,7 @@ class RegisterForm extends BaseForm
         return [
             'lastname' => 'Фамилия',
             'firstname' => 'Имя',
-            'middle-name' => 'Отчество',
+            'middlename' => 'Отчество',
             'birthday' => 'Дата рождения',
             'passport' => 'Паспорт',
             'email' => 'E-mail',
@@ -36,12 +36,12 @@ class RegisterForm extends BaseForm
     public function getRules()
     {
         return [
-            'lastname' => 'NameValidator',
-            /*'first-name' => 'safe',
-            'middle-name' => 'safe',
-            'birthday' => ['date', ['min' => 18, 'max' => 50]],
-            'passport' => 'safe',
-            'email' => 'safe',*/
+            'lastname' => ['NameValidator', ['min' => 1, 'max' => 32]],
+            'firstname' => ['NameValidator', ['min' => 1, 'max' => 32]],
+            'middlename' => ['NameValidator', ['min' => 1, 'max' => 32]],
+            'birthday' => ['DateValidator', ['min' => 18, 'max' => 50]],
+            'passport' => 'PassportValidator',
+            'email' => 'EmailValidator',
         ];
     }
 

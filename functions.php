@@ -2,7 +2,7 @@
     error_reporting(E_ALL);
     mb_internal_encoding("UTF-8");
 
-    require_once __DIR__ . '/validator.php';
+    //require_once __DIR__ . 'classes/Validator.php';
     //$validation = new Validator;
     function validate(array $inputData)
     {
