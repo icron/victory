@@ -2,7 +2,7 @@
 
 class BaseForm
 {
-    protected $errors = [];
+    private $errors = [];
 
     public function validate()
     {
@@ -70,4 +70,9 @@ class BaseForm
         return $this->errors;
     }
 
+    /*public function setErrors($x)
+    {
+        // Здесь что нибудь еще делаем, например, убираем лишние пробелы или еще что-нибудь.
+        $this->errors[] = $x;
+    }*/
 }

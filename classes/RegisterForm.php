@@ -44,7 +44,6 @@ class RegisterForm extends BaseForm
             'email' => 'EmailValidator',
         ];
     }
-
 }
 
 ?>
