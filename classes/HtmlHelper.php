@@ -2,7 +2,8 @@
 
 class HtmlHelper
 {
-    public static $controlGroupTemplate = '<div class="form-group {class_error}">{label} <div class="controls">{input} {error}</div></div>';
+    public static $controlGroupTemplate = '<div class="form-group {class_error}">{label} <div class="controls">{input} 
+{error}</div></div>';
 
     public static function textField(BaseForm $form, $attribute)
     {
@@ -32,7 +33,7 @@ class HtmlHelper
     public static function label(BaseForm $form, $attribute)
     {
         return strtr(
-            '<label class="control-label for="{attribute}">{value}</label>',
+            '<label class="control-label" for="{attribute}">{value}</label>',
             [
                 '{attribute}' => $attribute,
                 '{value}' => $form->getLabel($attribute)
