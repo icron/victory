@@ -12,15 +12,15 @@ class NameValidator extends Validator
 
         if (isset($params['min'])) {
             if ($countLetters < (int)$params['min']) {
-                $this->addError(' - длина строки меньше...');
-                return false;
+                $minMessage = isset($params['minMessage']) ? ($params['minMessage'] . '+ нужная длинна') : 'длина строки меньше + само значение';
+                // Сообщение берем из params['minMessage'] если этого параметра нет, то берем текст по умолчанию "длина строки меньше..."
+                $this->addError($minMessage);
             }
         }
 
         if (isset($params['max'])) {
             if ($countLetters > (int)$params['max']) {
-                $this->addError(' - длина строки больше...');
-                return false;
+                $this->addError('длина строки больше...');
             }
         }
 
@@ -29,12 +29,12 @@ class NameValidator extends Validator
         while ($i < $countLetters) {
             $letter = mb_substr($data, $i, 1);
             if (!in_array($letter, $allowedLetters)) {
-                $this->addError(' - использованы недопустимые символы');
-                return false;
+                $this->addError('использованы недопустимые символы');
+                break;
             }
             $i++;
         }
 
-        return true;
+        return !$this->hasErrors();
     }
 }

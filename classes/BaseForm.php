@@ -3,6 +3,13 @@
 class BaseForm
 {
     private $errors = [];
+    /** @var IModel */
+    private $model;
+
+    public function __construct(IModel $model)
+    {
+        $this->model = $model;
+    }
 
     public function validate()
     {
@@ -70,9 +77,28 @@ class BaseForm
         return $this->errors;
     }
 
+    public function getError($attribute)
+    {
+        return !empty($this->errors[$attribute]) ? $this->errors[$attribute] : null;
+    }
+
     /*public function setErrors($x)
     {
         // Здесь что нибудь еще делаем, например, убираем лишние пробелы или еще что-нибудь.
         $this->errors[] = $x;
     }*/
+
+    /**
+     * Сохранение данных в базу данных
+     */
+    public function save()
+    {
+        /**
+         *  Нужно добавить базовый абстрактный класс (или интерфейс) Model c абстрактным методом save()
+         *  от которого будут наследоваться следующие классы DbModel и FileModel
+         *  Соответственно дочерние классы будут реализовывать этот метод по разному. Файл - сохранть в файл
+         *  Db - сохранять в базу.
+         */
+        $this->model->save();
+    }
 }

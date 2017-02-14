@@ -1,5 +1,5 @@
 <?php
-class ViewForm extends BaseForm{
+class ViewForm {
 
     protected $controlGroupTemplate = '<div class="form-group {class_error}">{label} <div class="controls">{input} {error}</div></div>';
     protected $form;
@@ -18,7 +18,16 @@ class ViewForm extends BaseForm{
     public function textLabel($attribute)
     {
         $value = $this->form->getLabel($attribute);
-        return '<label class="form-control" for="' . $attribute . '"/>' . $value;
+        return '<label for="' . $attribute . '">' . $value . '</label>';
+    }
+
+    public function error($attribute)
+    {
+        $error = $this->form->getError($attribute);
+        if ($error !== null) {
+            $error = '<span class="help-inline error">' . implode('<br />', $error) . '</span>';
+        }
+        return $error;
     }
 
     /**
@@ -29,11 +38,10 @@ class ViewForm extends BaseForm{
      */
     public function textFieldRow($attribute)
     {
-        $input = self::textField($attribute);
-        $label = self::textLabel($attribute);
         return strtr($this->controlGroupTemplate, [
-            '{input}' => $input,
-            '{label}' => $label,
+            '{input}' => $this->textField($attribute),
+            '{label}' => $this->textLabel($attribute),
+            '{error}' => $this->error($attribute),
         ]);
     }
 }

@@ -36,7 +36,16 @@ class RegisterForm extends BaseForm
     public function getRules()
     {
         return [
-            'lastname' => ['NameValidator', ['min' => 1, 'max' => 32]],
+            'lastname' => [
+                'NameValidator',
+                [
+                    'min' => 1,
+                    'max' => 32,
+                    'minMessage' => '',
+                    'maxMessage' => '',
+                    'invalidLettersMessage' => ''
+                ]
+            ],
             'firstname' => ['NameValidator', ['min' => 1, 'max' => 32]],
             'middlename' => ['NameValidator', ['min' => 1, 'max' => 32]],
             'birthday' => ['DateValidator', ['min' => 18, 'max' => 50]],

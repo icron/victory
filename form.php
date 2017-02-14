@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Panika
- * Date: 13.02.2017
- * Time: 16:45
- */
 
-$db = new Db();
-$db->connectToDb();
+
 
 $lastname = trim($_REQUEST['lastname']);
 $firstname = trim($_REQUEST['firstname']);

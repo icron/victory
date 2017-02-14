@@ -1,8 +1,9 @@
 <?php
     //include 'functions.php';
     require_once 'autoload.php';
+    require_once 'config.php';
 
-    $modelForm = new RegisterForm();
+    $modelForm = new RegisterForm($model);
     $viewForm = new ViewForm($modelForm);
 
     if (Request::isPost()) {
@@ -28,7 +29,7 @@
         <div class="row">
             <div class="col-md-5">
                 <div>
-                    <? // $viewForm->renderErrorsSummary() ?>
+                    <?php // $viewForm->renderErrorsSummary() ?>
                     <?= HtmlHelper::renderErrorsSummary($modelForm); ?>
                 </div>
                 <form method="POST" class="form-horizontal">
