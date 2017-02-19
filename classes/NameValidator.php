@@ -12,7 +12,7 @@ class NameValidator extends Validator
 
         if (isset($params['min'])) {
             if ($countLetters < (int)$params['min']) {
-                $minMessage = isset($params['minMessage']) ? ($params['minMessage'] . '+ нужная длинна') : 'длина строки меньше + само значение';
+                $minMessage = isset($params['minMessage']) ? $params['minMessage'] : 'длина строки меньше' . (int)$params['min'];
                 // Сообщение берем из params['minMessage'] если этого параметра нет, то берем текст по умолчанию "длина строки меньше..."
                 $this->addError($minMessage);
             }
@@ -20,7 +20,9 @@ class NameValidator extends Validator
 
         if (isset($params['max'])) {
             if ($countLetters > (int)$params['max']) {
-                $this->addError('длина строки больше...');
+                $maxMessage = isset($params['maxMessage']) ? $params['maxMessage'] : 'длина строки больше' . (int)$params['max'];
+                // Сообщение берем из params['maxMessage'] если этого параметра нет, то берем текст по умолчанию "длина строки больше..."
+                $this->addError($maxMessage);
             }
         }
 
@@ -29,7 +31,8 @@ class NameValidator extends Validator
         while ($i < $countLetters) {
             $letter = mb_substr($data, $i, 1);
             if (!in_array($letter, $allowedLetters)) {
-                $this->addError('использованы недопустимые символы');
+                $invalidLettersMessage = isset($params['invalidLettersMessage']) ? $params['invalidLettersMessage'] : 'использованы недопустимые символы';
+                $this->addError($invalidLettersMessage);
                 break;
             }
             $i++;

@@ -6,9 +6,9 @@ class EmailValidator extends Validator
     {
         $result = (bool)filter_var($data, FILTER_VALIDATE_EMAIL);
         if ($result === false) {
-            $this->addError(' - неверно указан e-mail адрес');
-            return false;
+            $invalidEmailMessage = isset($params['invalidEmailMessage']) ? $params['invalidEmailMessage'] : 'неверно указан адрес электронной почты';
+            $this->addError($invalidEmailMessage);
         }
-        return true;
+        return !$this->hasErrors();
     }
 }

@@ -6,11 +6,11 @@ class PassportValidator extends Validator
     {
         $pattern = "/^([0-9]{4})-([0-9]{6})$/";
         if (!preg_match($pattern, $passport)) {
-            $this->addError(' - паспорт должен быть в формате 0000-000000');
-            return false;
+            $invalidPassportMessage = isset($params['invalidPassportMessage']) ? $params['invalidPassportMessage'] : 'неверно указан номер паспорта';
+            $this->addError($invalidPassportMessage);
         }
 
-        return true;
+        return !$this->hasErrors();
 
     }
 }

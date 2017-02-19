@@ -30,7 +30,7 @@
             <div class="col-md-5">
                 <div>
                     <?php // $viewForm->renderErrorsSummary() ?>
-                    <?= HtmlHelper::renderErrorsSummary($modelForm); ?>
+                    <?php //HtmlHelper::renderErrorsSummary($modelForm); ?>
                 </div>
                 <form method="POST" class="form-horizontal">
                     <?= $viewForm->textFieldRow('lastname') ?>
@@ -39,7 +39,7 @@
                     <?= HtmlHelper::textFieldRow($modelForm, 'birthday') ?>
                     <?= HtmlHelper::textFieldRow($modelForm, 'passport') ?>
                     <?= HtmlHelper::textFieldRow($modelForm, 'email') ?>
-                    <button type="submit" class="btn btn-info">Зарегистрироваться</button>
+                    <button type="submit" class="btn btn-info" style="margin-bottom: 30px;">Зарегистрироваться</button>
                 </form>
             </div>
         </div>

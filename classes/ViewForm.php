@@ -25,7 +25,7 @@ class ViewForm {
     {
         $error = $this->form->getError($attribute);
         if ($error !== null) {
-            $error = '<span class="help-inline error">' . implode('<br />', $error) . '</span>';
+            $error = '<span style="color: #d90202; font-size: 12px;" class="help-inline">' . implode('<br />', $error) . '</span>';
         }
         return $error;
     }

@@ -5,8 +5,8 @@ class DateValidator extends Validator
     public function validate($data, $params = [])
     {
         if (!preg_match("/^[0-9]{2}.[0-9]{2}.[0-9]{4}$/", $data)) {
-            $this->addError(' - указана недопустимая дата');
-            return false;
+            $invalidDateMessage = isset($params['invalidDateMessage']) ? $params['invalidDateMessage'] : 'неверно указана дата';
+            $this->addError($invalidDateMessage);
         }
 
         if (isset($params['min'])) {
@@ -16,8 +16,8 @@ class DateValidator extends Validator
             $isInvertMin = $dateIntervalMin->invert;
 
             if ($isInvertMin == 1) {
-                $this->addError(' - значение меньше допустимого');
-                return false;
+                $minDateMessage = isset($params['minDateMessage']) ? $params['minDateMessage'] : 'возраст меньше допустимого';
+                $this->addError($minDateMessage);
             }
         }
 
@@ -28,11 +28,11 @@ class DateValidator extends Validator
             $isInvertMax = $dateIntervalMax->invert;
 
             if ($isInvertMax == 0) {
-                $this->addError(' - значение больше допустимого');
-                return false;
+                $maxDateMessage = isset($params['maxDateMessage']) ? $params['maxDateMessage'] : 'возраст больше допустимого';
+                $this->addError($maxDateMessage);
             }
         }
 
-        return true;
+        return !$this->hasErrors();
     }
 }
